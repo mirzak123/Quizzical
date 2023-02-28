@@ -5,6 +5,8 @@ import "./App.css"
 
 function App() {
   const [questions, setQuestions] = useState([])
+  // maybe needed for win status?
+  // const [quizzical, setQuizzical] = useState(false)
   
   useEffect(() => {
     const triviaUrl = 'https://opentdb.com/api.php?amount=5'
@@ -12,17 +14,25 @@ function App() {
       .then(res => res.json())
       .then(data => {
         const questionObjects = data.results.map(item => {
+          // create answer objects from the incorrect answers
           const answers = [...item['incorrect_answers']].map(answer => ({
             answer: answer,
-            isCorrect: false
+            isCorrect: false,
+            isSelected: false
           }))
 
+          // add the correct answer to the answers array
           answers.push({
             answer: item['correct_answer'],
-            isCorrect: true
+            isCorrect: true,
+            isSelected: false
           })
 
+          // shuffle the answers
+          answers.sort(() => Math.random() - 0.5)
+
           return {
+            id: nanoid(),
             question: item.question,
             answers: answers
           }
@@ -31,15 +41,30 @@ function App() {
         setQuestions(questionObjects)
       })
   }, [])
-  // Data from API: array of objects containing: question, incorrectAnswers and correctAnswer
-  // map over the objects and create new objects of the parameters question and answers array
-  // answers array contains objects that have two parameters: answer and isCorrect
+
+  function toggleAnswer(questionId, answer) {
+    setQuestions(prevQuestions => prevQuestions.map(questionObject => {
+      if (questionId === questionObject.id) {
+        questionObject.answers.forEach(answerObject => {
+          if (answerObject.answer === answer) {
+            answerObject.isSelected = !answerObject.isSelected
+          }
+          else {
+            answerObject.isSelected = false
+          }
+        })
+      }
+      return questionObject
+    }))
+  }
 
   const questionElements = questions.map(questionObject => (
     <Question
-      key={nanoid()}
+      key={questionObject.id}
+      id={questionObject.id}
       question={questionObject.question}
       answers={questionObject.answers}
+      toggleAnswer={toggleAnswer}
     />
   ))
 

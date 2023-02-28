@@ -10,12 +10,19 @@ export default function Question(props) {
     return decodedDoc.documentElement.textContent;
   }
 
-  props.answers.sort(() => Math.random() - 0.5)
-
   const answerElements = props.answers.map(answer => {
+    const styles = {
+      backgroundColor: answer.isSelected ? '#D6DBF5' : '#F5F7FB'
+    }
+
     return (
-      <div key={nanoid()} className={`possible-answer ${answer.isCorrect ? "correct" : ""}`}>
-        {answer.answer}
+      <div
+        key={nanoid()}
+        className={`possible-answer ${answer.isCorrect ? "correct" : ""}`}
+        onClick={() => props.toggleAnswer(props.id, answer.answer)}
+        style={styles}
+      >
+        {decodeHtmlEntities(answer.answer)}
       </div>
     )
   })
