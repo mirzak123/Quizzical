@@ -5,8 +5,7 @@ import "./App.css"
 
 function App() {
   const [questions, setQuestions] = useState([])
-  // maybe needed for win status?
-  // const [quizzical, setQuizzical] = useState(false)
+  const [showAnswers, setShowAnswers] = useState(false)
   
   useEffect(() => {
     const triviaUrl = 'https://opentdb.com/api.php?amount=5'
@@ -58,6 +57,25 @@ function App() {
     }))
   }
 
+  function checkAnswers() {
+    setShowAnswers(true)
+    setQuestions(prevQuestions => prevQuestions.map(question => {
+      question.answers.forEach(answerObject => {
+        
+      })
+      return question
+    }))
+  }
+  
+  function getCorrectAnswers() {
+    let correctCount = 0
+    questions.forEach(questionObject => questionObject.answers.forEach(answer => {
+      if (answer.isCorrect && answer.isSelected)
+        correctCount++
+    }))
+    return correctCount
+  }
+
   const questionElements = questions.map(questionObject => (
     <Question
       key={questionObject.id}
@@ -65,13 +83,29 @@ function App() {
       question={questionObject.question}
       answers={questionObject.answers}
       toggleAnswer={toggleAnswer}
+      showAnswers={showAnswers}
     />
   ))
 
   return (
-    <main>
+    <main className="quizzical">
       <div className="quizzical-container">
         { questionElements }
+      </div>
+      <div className="button-container">
+        {
+          showAnswers ?
+            <>
+              <h2>You scored {getCorrectAnswers()}/5 correct answers</h2>
+              <button className="button">Play again</button>
+            </> :
+            <button
+              className="button"
+              onClick={checkAnswers}
+            >
+              Check answers
+            </button>
+      }
       </div>
     </main>
   )

@@ -15,12 +15,23 @@ export default function Question(props) {
       backgroundColor: answer.isSelected ? '#D6DBF5' : '#F5F7FB'
     }
 
+    const shownStyles = {
+      backgroundColor: (
+        answer.isCorrect ?
+          '#94D7A2' :
+          answer.isSelected ?
+            '#F8BCBC' :
+            '#F5F7FB'
+      ),
+      opacity: props.showAnswers && !answer.isCorrect ? '.65' : '1'
+    }
+
     return (
       <div
         key={nanoid()}
         className={`possible-answer ${answer.isCorrect ? "correct" : ""}`}
-        onClick={() => props.toggleAnswer(props.id, answer.answer)}
-        style={styles}
+        onClick={!props.showAnswers ? () => props.toggleAnswer(props.id, answer.answer) : null}
+        style={props.showAnswers ? shownStyles : styles}
       >
         {decodeHtmlEntities(answer.answer)}
       </div>

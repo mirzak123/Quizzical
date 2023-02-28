@@ -9,7 +9,7 @@ body {
   color: #293264;
 }
 
-main {
+.quizzical {
   position: relative;
   padding: 5rem;
 }
@@ -52,3 +52,32 @@ body::after {
 .possible-answer.correct {
   background: limegreen;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button {
+  background-color: #4D5B9E;
+  border-radius: 10px;
+  border: none;
+  color: #F5F7FB;
+  font-family: 'Karla', sans-serif;
+  font-size: 1.3rem;
+  padding: .7em 1.4em;
+  transition: all .15s ease;
+}
+
+.button:hover {
+  opacity: .9;
+}
+
+.button:active {
+  transform: scale(.95);
+}
+
+
