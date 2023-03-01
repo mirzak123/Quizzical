@@ -6,39 +6,74 @@ import "./App.css"
 function App() {
   const [questions, setQuestions] = useState([])
   const [showAnswers, setShowAnswers] = useState(false)
+
+  async function getNewQuestions() {
+    const triviaUrl = 'https://opentdb.com/api.php?amount=5'
+    const response = await fetch(triviaUrl)
+    const data = await response.json()
+
+    const questionObjects = data.results.map(item => {
+      // create answer objects from the incorrect answers
+      const answers = [...item['incorrect_answers']].map(answer => ({
+        answer: answer,
+        isCorrect: false,
+        isSelected: false
+      }))
+
+      // add the correct answer to the answers array
+      answers.push({
+        answer: item['correct_answer'],
+        isCorrect: true,
+        isSelected: false
+      })
+
+      // shuffle the answers
+      answers.sort(() => Math.random() - 0.5)
+
+      return {
+        id: nanoid(),
+        question: item.question,
+        answers: answers
+      }
+    })
+
+    return questionObjects
+  }
   
   useEffect(() => {
-    const triviaUrl = 'https://opentdb.com/api.php?amount=5'
-    fetch(triviaUrl)
-      .then(res => res.json())
-      .then(data => {
-        const questionObjects = data.results.map(item => {
-          // create answer objects from the incorrect answers
-          const answers = [...item['incorrect_answers']].map(answer => ({
-            answer: answer,
-            isCorrect: false,
-            isSelected: false
-          }))
+    // const triviaUrl = 'https://opentdb.com/api.php?amount=5'
+    // fetch(triviaUrl)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     const questionObjects = data.results.map(item => {
+    //       // create answer objects from the incorrect answers
+    //       const answers = [...item['incorrect_answers']].map(answer => ({
+    //         answer: answer,
+    //         isCorrect: false,
+    //         isSelected: false
+    //       }))
+    //
+    //       // add the correct answer to the answers array
+    //       answers.push({
+    //         answer: item['correct_answer'],
+    //         isCorrect: true,
+    //         isSelected: false
+    //       })
+    //
+    //       // shuffle the answers
+    //       answers.sort(() => Math.random() - 0.5)
+    //
+    //       return {
+    //         id: nanoid(),
+    //         question: item.question,
+    //         answers: answers
+    //       }
+    //     })
+    //
+    //     setQuestions(questionObjects)
+    //   })
 
-          // add the correct answer to the answers array
-          answers.push({
-            answer: item['correct_answer'],
-            isCorrect: true,
-            isSelected: false
-          })
-
-          // shuffle the answers
-          answers.sort(() => Math.random() - 0.5)
-
-          return {
-            id: nanoid(),
-            question: item.question,
-            answers: answers
-          }
-        })
-
-        setQuestions(questionObjects)
-      })
+    getNewQuestions().then(data => setQuestions(data))
   }, [])
 
   function toggleAnswer(questionId, answer) {
@@ -59,12 +94,6 @@ function App() {
 
   function checkAnswers() {
     setShowAnswers(true)
-    setQuestions(prevQuestions => prevQuestions.map(question => {
-      question.answers.forEach(answerObject => {
-        
-      })
-      return question
-    }))
   }
   
   function getCorrectAnswers() {
@@ -74,6 +103,11 @@ function App() {
         correctCount++
     }))
     return correctCount
+  }
+
+  function resetGame() {
+    getNewQuestions().then(data => setQuestions(data))
+    setShowAnswers(false)
   }
 
   const questionElements = questions.map(questionObject => (
@@ -97,7 +131,12 @@ function App() {
           showAnswers ?
             <>
               <h2>You scored {getCorrectAnswers()}/5 correct answers</h2>
-              <button className="button">Play again</button>
+              <button
+                className="button"
+                onClick={resetGame}
+              >
+                Play again
+              </button>
             </> :
             <button
               className="button"

@@ -23,7 +23,8 @@ export default function Question(props) {
             '#F8BCBC' :
             '#F5F7FB'
       ),
-      opacity: props.showAnswers && !answer.isCorrect ? '.65' : '1'
+      opacity: props.showAnswers && !answer.isCorrect ? '.65' : '1',
+      border: answer.isCorrect || answer.isSelected ? 'none' : 'null'
     }
 
     return (
