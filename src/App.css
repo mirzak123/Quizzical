@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background-color: #F5F7FB;
+  /* background-color: red; */
   box-sizing: border-box;
   position: relative;
   min-height: 100vh;
@@ -11,7 +12,7 @@ body {
 
 .quizzical {
   position: relative;
-  padding: 5rem;
+  padding: 5rem 0;
 }
 
 body::before {
@@ -30,6 +31,7 @@ body::after {
 
 .quizzical-container {
   width: 80%;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -41,6 +43,7 @@ body::after {
 .possible-answers-container {
   display: flex;
   gap: .8rem;
+  flex-wrap: wrap;
 }
 
 .possible-answer {
@@ -81,4 +84,16 @@ body::after {
   transform: scale(.95);
 }
 
+@media only screen and (max-width: 700px) {
+  .quizzical {
+    padding: 2rem 0;
+  }
 
+  .quizzical-container {
+    width: 90%;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+}
