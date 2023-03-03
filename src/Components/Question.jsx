@@ -12,7 +12,7 @@ export default function Question(props) {
 
   const answerElements = props.answers.map(answer => {
     const styles = {
-      backgroundColor: answer.isSelected ? '#D6DBF5' : '#F5F7FB'
+      backgroundColor: answer.isSelected ? '#D6DBF5' : '#F5F7FB',
     }
 
     const shownStyles = {
@@ -24,7 +24,7 @@ export default function Question(props) {
             '#F5F7FB'
       ),
       opacity: props.showAnswers && !answer.isCorrect ? '.65' : '1',
-      border: answer.isCorrect || answer.isSelected ? 'none' : 'null'
+      border: answer.isCorrect || answer.isSelected ? 'none' : 'null',
     }
 
     return (
