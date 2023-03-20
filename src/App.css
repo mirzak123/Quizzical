@@ -8,11 +8,24 @@ body {
   font-family: 'Karla', sans-serif;
   font-weight: 500;
   color: #293264;
+
+  /* experimental */
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+img {
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .quizzical {
   position: relative;
-  padding: 5rem 0;
+  height: 100%;
 }
 
 body::before {
@@ -29,10 +42,64 @@ body::after {
   bottom: 0;
 }
 
+.setup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.setup-container,
 .quizzical-container {
   width: 80%;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.question-configuration {
+  margin-bottom: 1rem;
+}
+
+.preference-wrapper {
+  display: flex;
+  font-size: 1.1rem;
+  align-items: center;
+  margin-bottom: .6rem;
+  gap: 1rem;
+}
+
+.preference-wrapper select {
+  flex: 1;
+}
+
+.select-category,
+.select-difficulty {
+  /* -webkit-appearance: none; */
+  /* appearance: none; */
+  font-size: 1.1rem;
+  padding: 0.1em;
+}
+
+/* .setup-container select option { */
+/*   -webkit-appearance: none; */
+/*   appearance: none; */
+/**/
+/*   background-color: yellow; */
+/* }  */
+
+.quizzical-container {
+  padding-top: 4rem;
+}
+
+.configure-icon {
+  display: block;
+  max-width: 50px;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
 
 .question-container {
@@ -58,12 +125,23 @@ body::after {
   background: limegreen;
 }
 
-.button-container {
+.quizzical-container__controller {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.score {
+  margin-bottom: .3em;
+}
+
+.button-container {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 3rem;
 }
 
 .button {
@@ -75,6 +153,14 @@ body::after {
   font-size: 1.3rem;
   padding: .7em 1.4em;
   transition: all .15s ease;
+  cursor: pointer;
+}
+
+.button--inverted {
+  background-color: #F5F7FB; 
+  color: #4D5B9E;
+  border: 1px solid #4D5B9E;
+  padding: .7em 1.7em;
 }
 
 .button:hover {
@@ -86,12 +172,9 @@ body::after {
 }
 
 @media only screen and (max-width: 700px) {
-  .quizzical {
-    padding: 2rem 0;
-  }
-
   .quizzical-container {
     width: 90%;
+    padding-top: 2rem;
   }
 
   .button-container {
