@@ -40,6 +40,20 @@ export default function SetupMenu(props) {
             <option value="hard">Hard</option>
           </select>
         </div>
+        <div className="preference-wrapper">
+          <label htmlFor="type">Type</label>
+          <select
+            onChange={props.handleChange}
+            className="select-difficulty"
+            name="type"
+            id="type"
+            value={props.questionParameters.type}
+          >
+            <option value="">Any</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True/False</option>
+          </select>
+        </div>
       </div>
       <button
         className="button"

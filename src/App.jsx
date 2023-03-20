@@ -10,7 +10,8 @@ function App() {
   const [showSetup, setShowSetup] = useState(true)
   const [questionParameters, setQuestionParameters] = useState({
     category: "",
-    difficulty: "easy"
+    difficulty: "",
+    type: ""
   })
 
   async function getNewQuestions() {
@@ -18,7 +19,8 @@ function App() {
       // if there is a set value for difficulty and category add it to the url
       + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
       + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
-    console.log(triviaUrl)
+      + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
+    // console.log(triviaUrl)
     const response = await fetch(triviaUrl)
     const data = await response.json()
 
