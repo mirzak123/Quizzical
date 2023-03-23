@@ -24,6 +24,7 @@ export default function SetupMenu(props) {
             <option value="21">Sports</option>
             <option value="23">History</option>
           </select>
+          <span className="custom-arrow"></span>
         </div>
         <div className="preference-wrapper">
           <label htmlFor="difficulty">Difficulty</label>
@@ -39,6 +40,7 @@ export default function SetupMenu(props) {
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
+          <span className="custom-arrow"></span>
         </div>
         <div className="preference-wrapper">
           <label htmlFor="type">Type</label>
@@ -53,6 +55,7 @@ export default function SetupMenu(props) {
             <option value="multiple">Multiple Choice</option>
             <option value="boolean">True/False</option>
           </select>
+          <span className="custom-arrow"></span>
         </div>
       </div>
       <button

@@ -20,7 +20,7 @@ function App() {
       + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
       + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
       + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
-    // console.log(triviaUrl)
+    console.log(triviaUrl)
     const response = await fetch(triviaUrl)
     const data = await response.json()
 
@@ -151,7 +151,7 @@ function App() {
                     </div>
                   </> :
                   <button
-                    className="button"
+                    className="button button--check-answers"
                     onClick={checkAnswers}
                   >
                     Check answers
