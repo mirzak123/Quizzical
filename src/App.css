@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background-color: #F5F7FB;
@@ -150,11 +154,23 @@ body::after {
   border-radius: 10px;
   padding: .2em 1em;
   user-select: none;
+  cursor: pointer;
   transition: all .15s ease;
+}
+
+.possible-answer:hover {
+  box-shadow: 0 4px 12px -8px #4D5B9E;
+  opacity: .8;
+  transform: scale(1.02);
 }
 
 .possible-answer.correct {
   background: limegreen;
+}
+
+/* TODO: Disable hover effects when show answers is true */
+.possible-answer.correct:hover {
+  pointer-events: none;
 }
 
 .quizzical-container__controller {
@@ -201,6 +217,8 @@ body::after {
 
 .button:hover {
   opacity: .9;
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px -5px #4D5B9E;
 }
 
 .button:active {

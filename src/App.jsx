@@ -14,13 +14,23 @@ function App() {
     type: ""
   })
 
-  async function getNewQuestions() {
-    const triviaUrl = "https://opentdb.com/api.php?amount=5"
+  function getUrl() {
+    const url = "https://opentdb.com/api.php?amount=5"
       // if there is a set value for difficulty and category add it to the url
       + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
       + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
       + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
-    console.log(triviaUrl)
+
+    return url
+  }
+
+  async function getNewQuestions() {
+    // const triviaUrl = "https://opentdb.com/api.php?amount=5"
+    //   // if there is a set value for difficulty and category add it to the url
+    //   + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
+    //   + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
+    //   + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
+    const triviaUrl = getUrl()
     const response = await fetch(triviaUrl)
     const data = await response.json()
 
@@ -77,6 +87,10 @@ function App() {
       return questionObject
     }))
   }
+
+  useEffect(() => {
+    window.scrollTo(0, showAnswers ? document.body.scrollHeight : 0);
+  }, [showAnswers])
 
   function checkAnswers() {
     setShowAnswers(true)
