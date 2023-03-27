@@ -4,10 +4,9 @@ export default function Question(props) {
   function decodeHtmlEntities(encodedString) {
     // Decodes strings containing html entities allowing them to display as symbols
     // Needed because 'opentdb' API returns string with html entities
-    // Code from ChatGPT
     const parser = new DOMParser();
     const decodedDoc = parser.parseFromString(encodedString, 'text/html');
-    return decodedDoc.documentElement.textContent;
+      return decodedDoc.documentElement.textContent;
   }
 
   const answerElements = props.answers.map(answer => {
@@ -30,7 +29,8 @@ export default function Question(props) {
     return (
       <div
         key={nanoid()}
-        className={`possible-answer ${answer.isCorrect ? "correct" : ""}`}
+        className={`possible-answer ${answer.isCorrect ? "correct" : ""}
+                    ${props.showAnswers ? "show-answer" : ""}`}
         onClick={!props.showAnswers ? () => props.toggleAnswer(props.id, answer.answer) : null}
         style={props.showAnswers ? shownStyles : styles}
       >

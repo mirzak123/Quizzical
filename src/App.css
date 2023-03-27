@@ -83,6 +83,8 @@ body::after {
   border: none;
   outline: none;
   box-shadow: 0 2px 8px -5px #4D5B9E;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .custom-arrow {
@@ -168,9 +170,12 @@ body::after {
   background: limegreen;
 }
 
-/* TODO: Disable hover effects when show answers is true */
-.possible-answer.correct:hover {
-  pointer-events: none;
+/* display buttons as static if showAnswers is set to true */
+.possible-answer.show-answer:hover {
+  box-shadow: unset;
+  opacity: unset;
+  transform: unset;
+  cursor: unset;
 }
 
 .quizzical-container__controller {
