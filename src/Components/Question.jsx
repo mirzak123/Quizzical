@@ -29,12 +29,17 @@ export default function Question(props) {
     return (
       <div
         key={nanoid()}
-        className={`possible-answer ${answer.isCorrect ? "correct" : ""}
-                    ${props.showAnswers ? "show-answer" : ""}`}
-        onClick={!props.showAnswers ? () => props.toggleAnswer(props.id, answer.answer) : null}
+        className={`possible-answer ${props.showAnswers ? "show-answer" : ""}`}
         style={props.showAnswers ? shownStyles : styles}
+        onClick={!props.showAnswers ? () => props.toggleAnswer(props.id, answer.answer) : null}
       >
-        {decodeHtmlEntities(answer.answer)}
+        <div
+          className="unselectable"
+          // className={`possible-answer ${props.showAnswers ? "show-answer" : ""}`}
+          // style={props.showAnswers ? shownStyles : styles}
+        >
+          {decodeHtmlEntities(answer.answer)}
+        </div>
       </div>
     )
   })
