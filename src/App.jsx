@@ -9,27 +9,24 @@ function App() {
   const [showAnswers, setShowAnswers] = useState(false)
   const [showSetup, setShowSetup] = useState(true)
   const [questionParameters, setQuestionParameters] = useState({
+    amount: "",
     category: "",
     difficulty: "",
-    type: ""
+    type: "",
   })
 
   function getUrl() {
-    const url = "https://opentdb.com/api.php?amount=5"
+    const url = "https://opentdb.com/api.php?amount="
       // if there is a set value for difficulty and category add it to the url
+      + `${questionParameters.amount ? `${questionParameters.amount}` : '5'}`
       + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
       + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
-      + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
+      // + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
 
     return url
   }
 
   async function getNewQuestions() {
-    // const triviaUrl = "https://opentdb.com/api.php?amount=5"
-    //   // if there is a set value for difficulty and category add it to the url
-    //   + `${questionParameters.category ? `&category=${questionParameters.category}` : ''}`
-    //   + `${questionParameters.difficulty ? `&difficulty=${questionParameters.difficulty}` : ''}`
-    //   + `${questionParameters.type ? `&type=${questionParameters.type}` : ''}`
     const triviaUrl = getUrl()
     const response = await fetch(triviaUrl)
     const data = await response.json()
@@ -60,13 +57,36 @@ function App() {
     })
 
     return questionObjects
+    // if (questionObjects.length) {
+    //   return questionObjects
+    // } else {
+    //   setQuestionParameters(prevParameters => {
+    //     return {
+    //       ...prevParameters,
+    //       type: ''
+    //     }
+    //   })
+    //   return getNewQuestions()
+    // }
   }
   
   useEffect(() => {
-    getNewQuestions().then(data => setQuestions(data))
+    getNewQuestions().then(data => { setQuestions(data) })
   }, [])
 
+  function checkRange() {
+    const inputField = document.querySelector('.amount')
+    const amount = Number(questionParameters.amount)
+    if (amount > Number(inputField.max)) {
+      questionParameters.amount = inputField.max
+    }
+    else if (inputField.value < Number(inputField.min)) {
+      questionParameters.amount = inputField.min
+    }
+  }
+
   function startGame() {
+    checkRange()
     getNewQuestions().then(data => setQuestions(data))
     setShowAnswers(false)
     setShowSetup(false)
@@ -96,7 +116,7 @@ function App() {
     setShowAnswers(true)
   }
   
-  function getCorrectAnswers() {
+  function countCorrectAnswers() {
     let correctCount = 0
     questions.forEach(questionObject => questionObject.answers.forEach(answer => {
       if (answer.isCorrect && answer.isSelected)
@@ -139,6 +159,7 @@ function App() {
             startGame={startGame}
             questionParameters={questionParameters}
             handleChange={handleChange}
+            checkRange={checkRange}
           /> :
           <div>
             <div className="quizzical-container">
@@ -148,7 +169,7 @@ function App() {
               {
                 showAnswers ?
                   <>
-                    <h2 className="score">You scored {getCorrectAnswers()}/5 correct answers</h2>
+                    <h2 className="score">You scored {countCorrectAnswers()}/{questionParameters.amount} correct answers</h2>
                     <div className="button-container">
                       <button
                         className="button button--inverted"

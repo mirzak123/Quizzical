@@ -7,10 +7,25 @@ export default function SetupMenu(props) {
       <div className="question-configuration">
         <h2>Question preferences</h2>
         <div className="preference-wrapper">
+          <label htmlFor="amount">Amount</label>
+          <input
+            onChange={props.handleChange}
+            onBlur={props.checkRange}
+            className="amount preference"
+            name="amount"
+            id="amount"
+            type="number"
+            placeholder="1 - 15"
+            value={props.questionParameters.amount}
+            min="5"
+            max="15"
+          />
+        </div>
+        <div className="preference-wrapper">
           <label htmlFor="category">Category</label>
           <select
             onChange={props.handleChange}
-            className="select-category"
+            className="select-category preference preference--select"
             name="category"
             id="category"
             value={props.questionParameters.category}
@@ -30,7 +45,7 @@ export default function SetupMenu(props) {
           <label htmlFor="difficulty">Difficulty</label>
           <select
             onChange={props.handleChange}
-            className="select-difficulty"
+            className="select-difficulty preference preference--select"
             name="difficulty"
             id="difficulty"
             value={props.questionParameters.difficulty}
@@ -39,21 +54,6 @@ export default function SetupMenu(props) {
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
-          </select>
-          <span className="custom-arrow"></span>
-        </div>
-        <div className="preference-wrapper">
-          <label htmlFor="type">Type</label>
-          <select
-            onChange={props.handleChange}
-            className="select-difficulty"
-            name="type"
-            id="type"
-            value={props.questionParameters.type}
-          >
-            <option value="">Any</option>
-            <option value="multiple">Multiple Choice</option>
-            <option value="boolean">True/False</option>
           </select>
           <span className="custom-arrow"></span>
         </div>
@@ -67,3 +67,20 @@ export default function SetupMenu(props) {
     </div>
   )
 }
+
+// Type causes a heck of a lot of issues
+// <div className="preference-wrapper">
+//   <label htmlFor="type">Type</label>
+//   <select
+//     onChange={props.handleChange}
+//     className="select-difficulty preference preference--select"
+//     name="type"
+//     id="type"
+//     value={props.questionParameters.type}
+//   >
+//     <option value="">Any</option>
+//     <option value="multiple">Multiple Choice</option>
+//     <option value="boolean">True/False</option>
+//   </select>
+//   <span className="custom-arrow"></span>
+// </div>
