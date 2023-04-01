@@ -82,7 +82,7 @@ body::after {
   appearance: none;
   font-family: 'Karla', sans-serif;
   font-size: 1rem;
-  padding: .25em;
+  padding: .25em .4em;
   background: white;
   border: none;
   outline: none;
