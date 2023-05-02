@@ -57,17 +57,6 @@ function App() {
     })
 
     return questionObjects
-    // if (questionObjects.length) {
-    //   return questionObjects
-    // } else {
-    //   setQuestionParameters(prevParameters => {
-    //     return {
-    //       ...prevParameters,
-    //       type: ''
-    //     }
-    //   })
-    //   return getNewQuestions()
-    // }
   }
   
   useEffect(() => {

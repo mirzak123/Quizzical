@@ -31,6 +31,7 @@ export default function SetupMenu(props) {
             value={props.questionParameters.category}
           >
             <option value="27">Animals</option>
+            <option value="31">Anime & Manga</option>
             <option value="10">Books</option>
             <option value="18">Computers</option>
             <option value="11">Film</option>
